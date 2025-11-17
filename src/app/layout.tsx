@@ -10,8 +10,16 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "THE HITA",
-  description: "Crafting Home for Everyone",
+  title: "The Hita - Your Home in Bali",
+  description:
+    "Experience the perfect blend of comfort and culture at The Hita",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -20,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id">
+    <html lang="en">
       <body className={plusJakartaSans.className}>
         {children}
       </body>
