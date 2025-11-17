@@ -1,21 +1,12 @@
 // export default function RootLayout({ children } )
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"], // Sesuaikan bobot yang dibutuhkan
+  display: "swap", // Untuk loading yang lebih baik
 });
 
 export const metadata: Metadata = {
@@ -30,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth motion-reduce:scroll-auto`}>
+      <body className={plusJakartaSans.className}>
         {children}
       </body>
     </html>
