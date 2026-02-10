@@ -4,9 +4,15 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
-    const currentYear = new Date().getFullYear();
+    // const currentYear = new Date().getFullYear();
+    const [currentYear, setCurrentYear] = useState(2026);
+
+    useEffect(() => {
+        setCurrentYear(new Date().getFullYear());
+    }, []);
 
     const footerLinks = {
         navigate: [

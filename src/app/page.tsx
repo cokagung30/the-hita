@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import { REST_ITEMS } from "@/constants/constants";
+import { RestItem } from "@/app/_components/rest-item";
 
 const aboutSlides = [
     { 
@@ -22,24 +24,6 @@ const aboutSlides = [
         image: "/images/illustration-3.jpg", 
         desc: "Hosts greet you like family. From breakfast and coffee to curated tips, small touches make your time at The Hita simple, comfortable, and memorable." 
     },
-];
-
-const restItems = [
-    {
-        title: "The Hita Uluwatu",
-        desc: "Our prime stay at the mystical Jimbaran Area. A strategic area close to the lousy Uluwatu and energetic Seminyak & Canggu Area",
-        image: "/images/the-hita-uluwatu.png",
-    },
-    {
-        title: "The Hita Seminyak",
-        desc: "Our prime stay at the mystical Jimbaran Area. A strategic area close to the lousy Uluwatu and energetic Seminyak & Canggu Area",
-        image: "/images/the-hita-seminyak.png",
-    },
-    {
-        title: "Sri Krisna",
-        desc: "Our prime stay at the mystical Jimbaran Area. A strategic area close to the lousy Uluwatu and energetic Seminyak & Canggu Area",
-        image: "/images/the-hita-sri-krisna.png",
-    }
 ];
 
 const gallerySlides = [
@@ -99,6 +83,7 @@ export default function Home() {
     const [isSwitching, setIsSwitching] = useState(false);
     const [galleryIndex, setGalleryIndex] = useState(0);
     const [currentFeedbackIndex, setCurrentFeedbackIndex] = useState(0);
+    const [isMounted, setIsMounted] = useState(false);
 
     const parallaxImgRef = useRef<HTMLDivElement>(null);
     const restRef = useRef<HTMLDivElement>(null);
@@ -107,6 +92,12 @@ export default function Home() {
     const eventsParallaxRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (!isMounted) return;
+
         let rafId = 0;
         
         const update = () => {
@@ -154,14 +145,14 @@ export default function Home() {
             setGalleryIndex((prev) => (nextIndex !== prev ? nextIndex : prev));
         };
 
-        update(); // Initial call
+        update();
         window.addEventListener("scroll", onScroll, { passive: true });
         
         return () => {
             window.removeEventListener("scroll", onScroll);
             cancelAnimationFrame(rafId);
         };
-    }, []);
+    }, [isMounted]);
 
     const switchAbout = (dir: "next" | "prev") => {
         setIsSwitching(true); // animasi keluar
@@ -195,16 +186,13 @@ export default function Home() {
         }
     };
 
-    // Auto-slide feedback cards
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCurrentFeedbackIndex((prev) => (prev + 1) % feedbacks.length);
-        }, 3000); // Slide setiap 3 detik
-
+        }, 3000); 
         return () => clearInterval(intervalId);
     }, []);
 
-    // Scroll feedback container when index changes
     useEffect(() => {
         const el = feedbackRef.current;
         if (!el) return;
@@ -219,7 +207,7 @@ export default function Home() {
     }, [currentFeedbackIndex]);
 
     return (
-        <>
+        <div suppressHydrationWarning>
             <Header isScrolled={scrolled} />
 
             <section id="jumbotron" className="relative min-h-screen overflow-hidden">
@@ -265,7 +253,7 @@ export default function Home() {
                         transition={{ duration: 0.7, ease: "easeOut" }}
                         className={`
                             relative h-72 md:h-[420px] transition-all duration-300
-                            ease-linear ${isSwitching ? 'opacity-0 translate-x-2' : 'opacity-100 translate-x-0'}
+                            ease-linear ${isMounted && isSwitching ? 'opacity-0 translate-x-2' : 'opacity-100 translate-x-0'}
                             will-change-[opacity,transform] rounded-2xl overflow-hidden
                         `}
                     >
@@ -296,7 +284,7 @@ export default function Home() {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.5, ease: "easeOut" }}
-                                className={`text-3xl sm:text-4xl md:text-5xl font-semibold text-black transition-all duration-300 ease-out ${isSwitching ? 'opacity-0 translate-x-[-4]' : 'opacity-100 translate-x-0'}`}
+                                className={`text-3xl sm:text-4xl md:text-5xl font-semibold text-black transition-all duration-300 ease-out ${isMounted && isSwitching ? 'opacity-0 -translate-x-1' : 'opacity-100 translate-x-0'}`}
                             >
                                 {aboutSlides[aboutIndex].title}
                             </motion.h2>
@@ -305,7 +293,7 @@ export default function Home() {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.5, ease: "easeOut" }}
-                                className={`mt-4 text-base sm:text-lg md:text-xl text-neutral-700 transition-all duration-300 ease-out ${isSwitching ? 'opacity-0 translate-x-[-4]' : 'opacity-100 translate-x-0'}`}
+                                className={`mt-4 text-base sm:text-lg md:text-xl text-neutral-700 transition-all duration-300 ease-out ${isMounted && isSwitching ? 'opacity-0 -translate-x-1' : 'opacity-100 translate-x-0'}`}
                             >
                                 {aboutSlides[aboutIndex].desc}
                             </motion.div>
@@ -372,93 +360,17 @@ export default function Home() {
                         style={{ scrollPaddingLeft: "1rem", scrollPaddingRight: "1rem" }}
                         className="mt-6 flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 no-scrollbar"
                     >
-                        {restItems.map((item, idx) => {
+                        {REST_ITEMS.map((item, idx) => {
                             const isFirst = idx === 0;
-                            const isLast = idx === restItems.length - 1;
+                            const isLast = idx === REST_ITEMS.length - 1;
                             return (
-                                <div
-                                    key={idx}
-                                    className={`group min-w-[85vw] sm:min-w-[420px] md:min-w-[500px] snap-center scroll-smooth rounded-2xl ${isFirst ? "ml-4 lg:ml-7" : ""} ${isLast ? "mr-4 lg:mr-7" : ""}`}
-                                >
-                                    <motion.div 
-                                        className="relative h-40 sm:h-52 rounded-xl overflow-hidden"
-                                        initial={{ opacity: 0, x: -20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: false }}
-                                        transition={{ 
-                                            duration: 0.5, 
-                                            delay: idx * 0.15 + 0.2,
-                                            ease: "easeOut" 
-                                        }}
-                                    >
-                                        <Image
-                                            src={item.image}
-                                            alt={item.title}
-                                            fill
-                                            sizes="(max-width: 768px) 90vw, 33vw"
-                                            className="object-cover"
-                                        />
-                                    </motion.div>
-
-                                    <div className="flex flex-col px-4">
-                                        <motion.h3 
-                                            initial={{ opacity: 0, x: -20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: false }}
-                                            transition={{ 
-                                                duration: 0.5, 
-                                                delay: idx * 0.15 + 0.2,
-                                                ease: "easeOut" 
-                                            }}
-                                            className="mt-5 text-2xl font-semibold"
-                                        >
-                                            {item.title}
-                                        </motion.h3>
-                                        <motion.div 
-                                            initial={{ opacity: 0, x: -20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: false }}
-                                            transition={{ 
-                                                duration: 0.5, 
-                                                delay: idx * 0.15 + 0.3,
-                                                ease: "easeOut" 
-                                            }}
-                                            className="mt-2 text-sm opacity-80"
-                                        >
-                                            {item.desc}
-                                        </motion.div>
-
-                                        <motion.div 
-                                            initial={{ opacity: 0, y: 20 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: false }}
-                                            transition={{ 
-                                                duration: 0.5, 
-                                                delay: idx * 0.15 + 0.4,
-                                                ease: "easeOut" 
-                                            }}
-                                            className="mt-5 flex items-center gap-6"
-                                        >
-                                            <motion.button 
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                transition={{ duration: 0.2 }}
-                                                className="rounded-full px-5 py-2 ring-1 ring-white/60 bg-transparent hover:bg-white/10 transition"
-                                            >
-                                                book now
-                                            </motion.button>
-                                            <motion.a 
-                                                href="#" 
-                                                whileHover={{ x: 5 }}
-                                                transition={{ duration: 0.2 }}
-                                                className="inline-flex items-center gap-2 group/cta text-white/90"
-                                            >
-                                                <span>more</span>
-                                                <MoveRight className="w-4 h-4 transition-transform group-hover/cta:translate-x-1" />
-                                            </motion.a>
-                                        </motion.div>
-                                    </div>
-                                </div>
+                                <RestItem 
+                                    key={`rest-${idx}`}
+                                    index={idx} 
+                                    isFirst={isFirst} 
+                                    isLast={isLast} 
+                                    item={item} 
+                                />
                             );
                         })}
                     </div>
@@ -940,7 +852,8 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+
             <Footer />
-        </>
+        </div>
     );
 }
