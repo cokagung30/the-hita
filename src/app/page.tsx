@@ -29,18 +29,18 @@ const aboutSlides = [
 const gallerySlides = [
     {
         word: "Stay",
-        left: ["/images/the-hita-logo.png", "/images/the-hita-sri-krisna.png", "/images/illustration-3.jpg"],
-        right: ["/images/illustration-2.jpg", "/images/the-hita-seminyak.png", "/images/the-hita-uluwatu.png"],
+        left: ["/images/gallery/stay-1.jpg", "/images/gallery/stay-2.jpg", "/images/gallery/stay-3.jpg"],
+        right: ["/images/gallery/stay-4.jpg", "/images/gallery/stay-5.jpg", "/images/gallery/stay-6.jpg"],
     },
     {
         word: "Explore",
-        left: ["/images/illustration-2.jpg", "/images/the-hita-uluwatu.png", "/images/illustration-1.jpg"],
-        right: ["/images/illustration-3.jpg", "/images/the-hita-seminyak.png", "/images/the-hita-sri-krisna.png"],
+        left: ["/images/gallery/explore-1.jpg", "/images/gallery/stay-2.jpg", "/images/gallery/stay-4.jpg"],
+        right: ["/images/gallery/stay-1.jpg", "/images/gallery/stay-5.jpg", "/images/gallery/stay-6.jpg"],
     },
     {
         word: "Enjoy",
-        left: ["/images/the-hita-seminyak.png", "/images/illustration-3.jpg", "/images/the-hita-sri-krisna.png"],
-        right: ["/images/illustration-1.jpg", "/images/the-hita-uluwatu.png", "/images/illustration-2.jpg"],
+        left: ["/images/gallery/enjoy-1.jpg", "/images/gallery/enjoy-2.jpg", "/images/gallery/enjoy-3.jpg"],
+        right: ["/images/gallery/enjoy-4.jpg", "/images/gallery/enjoy-5.jpg", "/images/gallery/stay-1.jpg"],
     },
 ];
 
@@ -218,13 +218,13 @@ export default function Home() {
                         ref={parallaxImgRef}
                         className="absolute -inset-12 will-change-transform"
                     >
-                        <Image 
-                            src="/images/banner.avif"
-                            alt="Background"
-                            fill
-                            sizes="100vw"
-                            className="object-cover pointer-events-none"
-                            priority
+                        <video
+                            src="/images/banner.mov"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                         />
                     </div>
 

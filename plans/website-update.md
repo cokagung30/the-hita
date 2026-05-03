@@ -15,8 +15,8 @@
 
 ## 2. Jumbotron – Replace banner image with video
 **File:** `src/app/page.tsx` – `#jumbotron` section
-- [~] Replace `<Image>` banner with `<video>` element
-- **Blocked:** Needs video file
+- [x] Replace `<Image>` banner with `<video>` element (`banner.mov`, autoPlay, muted, loop, playsInline)
+- ~~Blocked~~ ✅ Video file downloaded to `public/images/banner.mov`
 
 ---
 
@@ -32,8 +32,11 @@
 - [x] **Slide 3 – "Warm, Attentive Service"**
   > From the moment you arrive, our hosts treat you like family — not just a room number. Expect a warm welcome, freshly brewed coffee at dawn, a homemade breakfast made with local ingredients, and honest recommendations for the Bali only locals know. Small gestures, remembered preferences, and a genuine desire to make your stay feel effortless.
 
-- [~] Replace slide images (3 new photos)
-- **Blocked:** Needs new image assets
+- [x] Replace slide images (3 new photos downloaded)
+- ~~Blocked~~ ✅ Images downloaded to `public/images/`:
+  - `illustration-1.jpg` → "A Cozy Guest House" (6.6MB)
+  - `illustration-2.jpg` → "Designed for Slow Living" (6.0MB)
+  - `illustration-3.jpg` → "Warm, Attentive Service" (8.1MB)
 
 ---
 
@@ -50,18 +53,24 @@
 - [x] **Sri Krisna**
   > Tucked along the iconic Jalan Seminyak, Sri Krisna is where Bali's most vibrant neighbourhood meets a home that knows when to be quiet. Step outside and you're seconds from the boutiques, cafés, and beach clubs that make Seminyak legendary. Step inside and the warm wood frames, open breezeways, and hand-crafted details pull you into a different pace entirely — unhurried, personal, and unmistakably Balinese.
 
-- [~] Replace branch card photos (3 new images)
-- **Blocked:** Needs new image assets
+- [x] Replace branch card photos (3 new images downloaded)
+- ~~Blocked~~ ✅ Images downloaded to `public/images/`:
+  - `the-hita-uluwatu.png` → "THE HITA ULUWATU.jpg" (6.0MB)
+  - `the-hita-seminyak.png` → "THE HITA SEMINYAK.jpg" (10MB)
+  - `the-hita-sri-krisna.png` → "SRI KRISNA.jpg" (6.5MB)
 
 ---
 
 ## 5. Gallery – Update photos
 **File:** `src/app/page.tsx` – `gallerySlides` array
 
-- [~] Replace "Stay" group images
-- [~] Replace "Explore" group images
-- [~] Replace "Enjoy" group images
-- **Blocked:** Needs new image assets (3 sets)
+- [x] Replace "Stay" group images
+- [x] Replace "Explore" group images
+- [x] Replace "Enjoy" group images
+- ~~Blocked~~ ✅ Images downloaded to `public/images/gallery/`:
+  - `stay-1.jpg` – `stay-6.jpg` (6 images from Stay folder)
+  - `explore-1.jpg` (Tirta Empul.jpg — featured in left[0]; Stay images fill remaining 5 slots)
+  - `enjoy-1.jpg` – `enjoy-5.jpg` (5 images; stay-1 fills last slot)
 
 ---
 
