@@ -21,7 +21,7 @@ export default function Header({isScrolled}: HeaderProps) {
     };
 
     const navLinks = [
-        { name: "Tentang", href: "#about" },
+        { name: "About", href: "#about" },
         { name: "Events", href: "#events" },
         { name: "Accommodations", href: "#rest" },
         { name: "Contact Us", href: "#footer" },

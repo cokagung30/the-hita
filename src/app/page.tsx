@@ -12,17 +12,17 @@ const aboutSlides = [
     { 
         title: "A Cozy Guest House", 
         image: "/images/illustration-1.jpg", 
-        desc: "The Hita is a boutique guest house where modern comfort meets island calm. Sunlit rooms and a relaxed café invite slow mornings and easy evenings. Thoughtful details and local touches make every stay feel personal." 
+        desc: "Where island calm meets everyday comfort. The Hita is a boutique guest house built for those who travel slowly — sunlit rooms, a quiet café, and spaces that feel like they've always been yours. Every detail, from hand-picked linens to locally sourced breakfasts, is here to make you feel less like a guest and more like you've come home." 
     },
     { 
         title: "Designed for Slow Living", 
         image: "/images/illustration-2.jpg", 
-        desc: "Soft linens, warm wood, and locally crafted pieces shape spaces made to unwind. Private corners and shared courtyards create a gentle rhythm between your Bali adventures." 
+        desc: "Soft linens, warm teak wood, and locally crafted décor shape spaces made for unwinding at your own pace. Private corners invite quiet reflection, while open courtyards become the gentle backdrop between your Bali adventures. Here, there's no rush — just the unhurried rhythm of island life, designed into every room." 
     },
     { 
         title: "Warm, Attentive Service", 
         image: "/images/illustration-3.jpg", 
-        desc: "Hosts greet you like family. From breakfast and coffee to curated tips, small touches make your time at The Hita simple, comfortable, and memorable." 
+        desc: "From the moment you arrive, our hosts treat you like family — not just a room number. Expect a warm welcome, freshly brewed coffee at dawn, a homemade breakfast made with local ingredients, and honest recommendations for the Bali only locals know. Small gestures, remembered preferences, and a genuine desire to make your stay feel effortless." 
     },
 ];
 
@@ -74,7 +74,9 @@ const feedbacks = [
 const offers = [
     {title: 'Book by \nWhatsapp', percentage: 10},
     {title: 'Book from \nWebsite', percentage: 10},
-    {title: 'Membership \nDiscount', percentage: 10},
+    {title: 'Free Afternoon\nTea', voucher: true},
+    {title: 'Meal Disk\n15%', voucher: true},
+    {title: 'Free\nMeal', voucher: true},
 ];
 
 export default function Home() {
@@ -335,7 +337,7 @@ export default function Home() {
                         transition={{ duration: 0.6, ease: "easeOut" }}
                         className="flex items-center justify-between px-4 sm:px-7"
                     >
-                        <h2 className="text-3xl sm:text-4xl font-semibold">Rest</h2>
+                        <h2 className="text-3xl sm:text-4xl font-semibold">Our Branch</h2>
 
                         <div className="flex items-center gap-3">
                             <button
@@ -729,7 +731,7 @@ export default function Home() {
                                     <div
                                         className="bg-gradient-to-b from-[#3D2709] to-[#211503] w-full text-white items-end py-2 lg:px-6 px-2 lg:rounded-b-4xl rounded-b-xl font-bold text-sm lg:text-3xl text-end"
                                     >
-                                        {offer.percentage}% off
+                                        {'percentage' in offer ? `${offer.percentage}% off` : 'Voucher'}
                                     </div>
                                 </motion.div>
                             );
@@ -778,18 +780,9 @@ export default function Home() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: false, margin: "-100px" }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="text-[#221604] font-bold text-lg lg:text-4xl mb-1 lg:mb-4"
+                        className="text-[#221604] font-bold text-lg lg:text-4xl mb-8 lg:mb-12"
                     >
-                        Our Events
-                    </motion.div>
-                    <motion.div 
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: false, margin: "-100px" }}
-                        transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-                        className="text-[#221604] text-lg lg:text-4xl lg:mb-18 mb-8"
-                    >
-                        The Place Where Characters Blends
+                        Discover The Hita
                     </motion.div>
 
                     <div className="flex flex-col lg:flex-row gap-6 w-full mb-4 lg:mb-10">
@@ -849,6 +842,35 @@ export default function Home() {
                                 <p className="text-white font-semibold text-sm lg:text-base">Rooftop BBQ</p>
                             </motion.div>
                         </motion.div>
+                    </div>
+
+                    {/* Facility Slides */}
+                    <div className="mt-10 px-2 lg:px-4">
+                        <div className="flex gap-4 lg:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 no-scrollbar">
+                            {[
+                                { label: 'Cafe IGYT' },
+                                { label: 'Pool' },
+                                { label: 'Tour' },
+                                { label: 'Rental Bike' },
+                                { label: 'Pick Up & Drop Airport' },
+                                { label: 'Room Decoration' },
+                            ].map((facility, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                    viewport={{ once: false, margin: '-100px' }}
+                                    transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+                                    whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+                                    className="relative flex-shrink-0 w-[70vw] sm:w-[45vw] lg:w-[30%] h-52 lg:h-72 rounded-[16px] lg:rounded-[24px] overflow-hidden bg-neutral-200 snap-center cursor-pointer"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#3D2709]/80 via-[#3D2709]/20 to-transparent" />
+                                    <div className="absolute bottom-0 left-0 p-4 lg:p-6">
+                                        <p className="text-white font-semibold text-base lg:text-xl">{facility.label}</p>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
