@@ -5,7 +5,7 @@ import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"], // Sesuaikan bobot yang dibutuhkan
+  weight: ["400", "500", "600", "700"],
   display: "swap", // Untuk loading yang lebih baik
 });
 

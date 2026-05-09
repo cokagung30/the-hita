@@ -224,6 +224,8 @@ export default function Home() {
                             muted
                             loop
                             playsInline
+                            poster="/images/banner.avif"
+                            preload="metadata"
                             className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                         />
                     </div>
@@ -411,7 +413,7 @@ export default function Home() {
                                         transition={{ duration: 0.5, ease: "easeOut" }}
                                         className="relative w-full h-28 sm:h-36 md:h-44 lg:h-40 rounded-[24px] overflow-hidden bg-neutral-100"
                                     >
-                                        <Image src={gallerySlides[galleryIndex].left[0]} alt="Gallery image" fill className="object-cover" />
+                                        <Image src={gallerySlides[galleryIndex].left[0]} alt="Gallery image" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                                     </motion.div>
                                 </AnimatePresence>
 
@@ -424,7 +426,7 @@ export default function Home() {
                                         transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
                                         className="relative w-full h-28 sm:h-36 md:h-44 lg:h-48 rounded-[24px] overflow-hidden bg-neutral-100"
                                     >
-                                        <Image src={gallerySlides[galleryIndex].left[1]} alt="Gallery image" fill className="object-cover" />
+                                        <Image src={gallerySlides[galleryIndex].left[1]} alt="Gallery image" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                                     </motion.div>
                                 </AnimatePresence>
 
@@ -437,7 +439,7 @@ export default function Home() {
                                         transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
                                         className="relative w-full h-28 sm:h-36 md:h-44 lg:h-48 rounded-[24px] overflow-hidden bg-neutral-100"
                                     >
-                                        <Image src={gallerySlides[galleryIndex].right[0]} alt="Gallery image" fill className="object-cover" />
+                                        <Image src={gallerySlides[galleryIndex].right[0]} alt="Gallery image" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                                     </motion.div>
                                 </AnimatePresence>
 
@@ -450,7 +452,7 @@ export default function Home() {
                                         transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
                                         className="relative w-full h-28 sm:h-36 md:h-44 lg:h-72 rounded-[24px] overflow-hidden bg-neutral-100"
                                     >
-                                        <Image src={gallerySlides[galleryIndex].left[2]} alt="Gallery image" fill className="object-cover" />
+                                        <Image src={gallerySlides[galleryIndex].left[2]} alt="Gallery image" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                                     </motion.div>
                                 </AnimatePresence>
 
@@ -463,7 +465,7 @@ export default function Home() {
                                         transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
                                         className="relative w-full h-28 sm:h-36 md:h-44 lg:h-60 rounded-[24px] overflow-hidden bg-neutral-100"
                                     >
-                                        <Image src={gallerySlides[galleryIndex].right[1]} alt="Gallery image" fill className="object-cover" />
+                                        <Image src={gallerySlides[galleryIndex].right[1]} alt="Gallery image" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                                     </motion.div>
                                 </AnimatePresence>
 
@@ -476,7 +478,7 @@ export default function Home() {
                                         transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
                                         className="relative w-full h-28 sm:h-36 md:h-44 lg:h-60 rounded-[24px] overflow-hidden bg-neutral-100"
                                     >
-                                        <Image src={gallerySlides[galleryIndex].right[2]} alt="Gallery image" fill className="object-cover" />
+                                        <Image src={gallerySlides[galleryIndex].right[2]} alt="Gallery image" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                                     </motion.div>
                                 </AnimatePresence>
                             </div>
@@ -494,7 +496,7 @@ export default function Home() {
                                         transition={{ duration: 0.6, ease: "easeOut" }}
                                         className="relative w-[42%] h-28 sm:h-36 md:h-44 lg:h-40 rounded-[24px] overflow-hidden bg-neutral-100"
                                     >
-                                        <Image src={gallerySlides[galleryIndex].left[0]} alt="Gallery image" fill className="object-cover" />
+                                        <Image src={gallerySlides[galleryIndex].left[0]} alt="Gallery image" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                                     </motion.div>
                                 </AnimatePresence>
 
@@ -507,7 +509,7 @@ export default function Home() {
                                         transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
                                         className="relative w-[35%] h-28 sm:h-36 md:h-44 lg:h-48 rounded-[24px] overflow-hidden bg-neutral-100"
                                     >
-                                        <Image src={gallerySlides[galleryIndex].left[1]} alt="Gallery image" fill className="object-cover" />
+                                        <Image src={gallerySlides[galleryIndex].left[1]} alt="Gallery image" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                                     </motion.div>
                                 </AnimatePresence>
 
@@ -520,7 +522,7 @@ export default function Home() {
                                         transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
                                         className="relative w-[23%] h-28 sm:h-36 md:h-44 lg:h-48 rounded-[24px] overflow-hidden bg-neutral-100"
                                     >
-                                        <Image src={gallerySlides[galleryIndex].right[0]} alt="Gallery image" fill className="object-cover" />
+                                        <Image src={gallerySlides[galleryIndex].right[0]} alt="Gallery image" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                                     </motion.div>
                                 </AnimatePresence>
                             </div>
@@ -535,7 +537,7 @@ export default function Home() {
                                         transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
                                         className="relative w-[40%] h-28 sm:h-36 md:h-44 lg:h-72 rounded-[24px] overflow-hidden bg-neutral-100"
                                     >
-                                        <Image src={gallerySlides[galleryIndex].left[1]} alt="Gallery image" fill className="object-cover" />
+                                        <Image src={gallerySlides[galleryIndex].left[1]} alt="Gallery image" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                                     </motion.div>
                                 </AnimatePresence>
 
@@ -567,7 +569,7 @@ export default function Home() {
                                         transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
                                         className="relative w-[35%] h-28 sm:h-36 md:h-44 lg:h-64 rounded-[24px] overflow-hidden bg-neutral-100 self-end"
                                     >
-                                        <Image src={gallerySlides[galleryIndex].right[1]} alt="Gallery image" fill className="object-cover" />
+                                        <Image src={gallerySlides[galleryIndex].right[1]} alt="Gallery image" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                                     </motion.div>
                                 </AnimatePresence>
                             </div>
@@ -582,7 +584,7 @@ export default function Home() {
                                         transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
                                         className="relative w-[50%] h-28 sm:h-36 md:h-44 lg:h-60 rounded-[24px] overflow-hidden bg-neutral-100"
                                     >
-                                        <Image src={gallerySlides[galleryIndex].left[2]} alt="Gallery image" fill className="object-cover" />
+                                        <Image src={gallerySlides[galleryIndex].left[2]} alt="Gallery image" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                                     </motion.div>
                                 </AnimatePresence>
 
@@ -595,7 +597,7 @@ export default function Home() {
                                         transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
                                         className="relative w-[50%] h-28 sm:h-36 md:h-44 lg:h-60 rounded-[24px] overflow-hidden bg-neutral-100"
                                     >
-                                        <Image src={gallerySlides[galleryIndex].right[2]} alt="Gallery image" fill className="object-cover" />
+                                        <Image src={gallerySlides[galleryIndex].right[2]} alt="Gallery image" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                                     </motion.div>
                                 </AnimatePresence>
                             </div>
@@ -757,8 +759,8 @@ export default function Home() {
                             src="/images/community.png"
                             alt="Illustration Community"
                             fill
+                            sizes="100vw"
                             className="object-cover pointer-events-none w-full lg:h-fit h-[50vh]"
-                            priority
                         />
                     </div>
 
@@ -794,7 +796,7 @@ export default function Home() {
                             whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
                             className="relative w-full lg:w-[20%] h-[90vw] lg:h-96 rounded-[16px] lg:rounded-[24px] overflow-hidden bg-neutral-100 cursor-pointer"
                         >
-                            <Image src="/images/events-1.png" alt="Image Event 1" fill className="object-cover" />
+                            <Image src="/images/events-1.png" alt="Image Event 1" fill sizes="(max-width: 1024px) 90vw, 20vw" className="object-cover" />
                             <motion.div 
                                 initial={{ opacity: 0 }}
                                 whileHover={{ opacity: 1 }}
@@ -813,7 +815,7 @@ export default function Home() {
                             whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
                             className="relative w-full lg:w-[35%] h-[90vw] lg:h-96 rounded-[16px] lg:rounded-[24px] overflow-hidden bg-neutral-100 cursor-pointer"
                         >
-                            <Image src="/images/events-2.png" alt="Image Event 2" fill className="object-cover" />
+                            <Image src="/images/events-2.png" alt="Image Event 2" fill sizes="(max-width: 1024px) 90vw, 35vw" className="object-cover" />
                             <motion.div 
                                 initial={{ opacity: 0 }}
                                 whileHover={{ opacity: 1 }}
@@ -832,7 +834,7 @@ export default function Home() {
                             whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
                             className="relative w-full lg:w-[45%] h-[90vw] lg:h-96 rounded-[16px] lg:rounded-[24px] overflow-hidden bg-neutral-100 cursor-pointer"
                         >
-                            <Image src="/images/events-3.png" alt="Image Event 3" fill className="object-cover" />
+                            <Image src="/images/events-3.png" alt="Image Event 3" fill sizes="(max-width: 1024px) 90vw, 45vw" className="object-cover" />
                             <motion.div 
                                 initial={{ opacity: 0 }}
                                 whileHover={{ opacity: 1 }}
