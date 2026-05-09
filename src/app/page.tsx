@@ -890,25 +890,29 @@ export default function Home() {
                             { label: 'Pick Up & Drop Airport', image: '/images/facilities/facility-airport.jpg' },
                             { label: 'Room Decoration', image: '/images/facilities/facility-room-decoration.jpg' },
                         ].map((facility, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: false, margin: '-100px' }}
-                                transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
                                 onMouseEnter={() => setHoveredFacilityIndex(i)}
                                 onMouseLeave={() => setHoveredFacilityIndex(null)}
                                 style={{ flexGrow: hoveredFacilityIndex === i ? 2.5 : 1, transition: 'flex-grow 500ms ease-in-out' }}
-                                className="relative w-full h-16 lg:h-72 rounded-[12px] lg:rounded-[24px] overflow-hidden bg-neutral-200 cursor-pointer"
+                                className="relative w-full lg:w-auto"
                             >
-                                {facility.image && (
-                                    <Image src={facility.image} alt={facility.label} fill sizes="(max-width: 1024px) 100vw, 30vw" className="object-cover" />
-                                )}
-                                <div className="absolute inset-0 bg-gradient-to-r lg:bg-gradient-to-t from-[#3D2709]/80 via-[#3D2709]/30 to-transparent" />
-                                <div className="absolute inset-0 flex items-center lg:items-end p-4 lg:p-6">
-                                    <p className="text-white font-semibold text-sm lg:text-xl whitespace-nowrap">{facility.label}</p>
-                                </div>
-                            </motion.div>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: false, margin: '-100px' }}
+                                    transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+                                    className="relative w-full h-16 lg:h-72 rounded-[12px] lg:rounded-[24px] overflow-hidden bg-neutral-200 cursor-pointer"
+                                >
+                                    {facility.image && (
+                                        <Image src={facility.image} alt={facility.label} fill sizes="(max-width: 1024px) 100vw, 30vw" className="object-cover" />
+                                    )}
+                                    <div className="absolute inset-0 bg-gradient-to-r lg:bg-gradient-to-t from-[#3D2709]/80 via-[#3D2709]/30 to-transparent" />
+                                    <div className="absolute inset-0 flex items-center lg:items-end p-4 lg:p-6">
+                                        <p className="text-white font-semibold text-sm lg:text-xl whitespace-nowrap">{facility.label}</p>
+                                    </div>
+                                </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
