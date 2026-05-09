@@ -44,32 +44,16 @@ const gallerySlides = [
     },
 ];
 
-const feedbacks = [
-    {
-        name: "Sarah Johnson",
-        rating: 5,
-        comment: "An absolutely wonderful stay! The attention to detail and warm hospitality made our Bali experience unforgettable. The rooms are beautifully designed and the location is perfect.",
-        date: "March 2024"
-    },
-    {
-        name: "Michael Chen",
-        rating: 5,
-        comment: "The Hita exceeded all expectations. The staff went above and beyond to make our stay comfortable. The café serves excellent coffee and the atmosphere is so relaxing.",
-        date: "February 2024"
-    },
-    {
-        name: "Emma Williams",
-        rating: 5,
-        comment: "A hidden gem in Bali! The peaceful ambiance and thoughtful touches throughout made this the perfect retreat. Can't wait to return!",
-        date: "January 2024"
-    },
-    {
-        name: "David Martinez",
-        rating: 5,
-        comment: "Incredible experience from start to finish. The blend of modern comfort and traditional Balinese charm is perfect. Highly recommend!",
-        date: "December 2023"
-    }
-];
+type GoogleReview = {
+    name: string;
+    rating: number;
+    comment: string;
+    date: string;
+    photo: string | null;
+    location?: string | null;
+    time?: number;
+    reviewUrl?: string | null;
+};
 
 const offers = [
     {title: 'Book by \nWhatsapp', percentage: 10},
@@ -88,6 +72,8 @@ export default function Home() {
     const [isMounted, setIsMounted] = useState(false);
     const [hoveredFacilityIndex, setHoveredFacilityIndex] = useState<number | null>(null);
     const [activeOffer, setActiveOffer] = useState(0);
+    const [feedbacks, setFeedbacks] = useState<GoogleReview[]>([]);
+    const [isLoadingFeedbacks, setIsLoadingFeedbacks] = useState(true);
 
     const parallaxImgRef = useRef<HTMLDivElement>(null);
     const restRef = useRef<HTMLDivElement>(null);
@@ -97,6 +83,18 @@ export default function Home() {
 
     useEffect(() => {
         setIsMounted(true);
+    }, []);
+
+    useEffect(() => {
+        fetch("/api/reviews")
+            .then((res) => res.json())
+            .then((data) => {
+                if (Array.isArray(data.reviews) && data.reviews.length > 0) {
+                    setFeedbacks(data.reviews);
+                }
+            })
+            .catch(() => {})
+            .finally(() => setIsLoadingFeedbacks(false));
     }, []);
 
     useEffect(() => {
@@ -202,7 +200,7 @@ export default function Home() {
             setCurrentFeedbackIndex((prev) => (prev + 1) % feedbacks.length);
         }, 3000); 
         return () => clearInterval(intervalId);
-    }, []);
+    }, [feedbacks.length]);
 
     useEffect(() => {
         const el = feedbackRef.current;
@@ -652,7 +650,28 @@ export default function Home() {
                     className="mt-6 flex lg:gap-4 gap-2 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 no-scrollbar"
                     style={{ scrollPaddingLeft: "1rem", scrollPaddingRight: "1rem" }}
                 >
-                    {feedbacks.map((feedback, idx) => {
+                    {isLoadingFeedbacks ? (
+                        [...Array(3)].map((_, idx) => (
+                            <div
+                                key={idx}
+                                className={`border-2 border-[#221604]/10 min-w-[85vw] sm:min-w-[420px] md:min-w-[500px] flex flex-col rounded-2xl p-6 gap-4 ${idx === 0 ? "ml-4 lg:ml-7" : ""} ${idx === 2 ? "mr-4 lg:mr-7" : ""}`}
+                            >
+                                <div className="h-6 w-2/5 rounded-lg bg-[#3D2709]/10 animate-pulse" />
+                                <div className="flex flex-col gap-2 flex-1">
+                                    <div className="h-3 w-full rounded bg-[#3D2709]/10 animate-pulse" />
+                                    <div className="h-3 w-full rounded bg-[#3D2709]/10 animate-pulse" />
+                                    <div className="h-3 w-4/5 rounded bg-[#3D2709]/10 animate-pulse" />
+                                    <div className="h-3 w-3/5 rounded bg-[#3D2709]/10 animate-pulse" />
+                                    <div className="h-3 w-4/5 rounded bg-[#3D2709]/10 animate-pulse" />
+                                </div>
+                                <div className="flex items-center gap-2 mt-2">
+                                    {[...Array(5)].map((_, i) => (
+                                        <div key={i} className="w-4 h-4 lg:w-6 lg:h-6 rounded-sm bg-[#3D2709]/10 animate-pulse" />
+                                    ))}
+                                </div>
+                            </div>
+                        ))
+                    ) : feedbacks.map((feedback, idx) => {
                         const isFirst = idx === 0;
                         const isLast = idx === feedbacks.length - 1;
 
@@ -665,16 +684,28 @@ export default function Home() {
                                     scale: idx === currentFeedbackIndex ? 1 : 0.95
                                 }}
                                 transition={{ duration: 0.5, ease: "easeOut" }}
-                                className={`group border-2 border-[#221604] min-w-[85vw] sm:min-w-[420px] md:min-w-[500px] gap-1.5 flex flex-col rounded-2xl p-6 ${isFirst ? "ml-4 lg:ml-7" : ""} ${isLast ? "mr-4 lg:mr-7" : ""}`}
+                                className={`group border-2 border-[#221604] min-w-[85vw] sm:min-w-[420px] md:min-w-[500px] flex flex-col rounded-2xl p-6 ${isFirst ? "ml-4 lg:ml-7" : ""} ${isLast ? "mr-4 lg:mr-7" : ""}`}
                             >
                                 <div className="flex flex-col h-full justify-between">
-                                    <h2 className="text-xl lg:text-2xl text-[#3D2709]">
-                                        {feedback.name}
-                                    </h2>
-                                    <div className="text-[#221604] text-xs lg:text-sm font-semibold leading-relaxed mb-6">
-                                        {feedback.comment}
+                                    <div className="flex flex-col gap-3">
+                                        <h2 className="text-xl lg:text-2xl text-[#3D2709]">
+                                            {feedback.name}
+                                        </h2>
+                                        <div className="text-[#221604] text-xs lg:text-sm font-semibold leading-relaxed line-clamp-5">
+                                            {feedback.comment}
+                                        </div>
+                                        {feedback.reviewUrl && (
+                                            <a
+                                                href={feedback.reviewUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-xs text-[#3D2709] underline underline-offset-2 hover:opacity-70 transition-opacity w-fit"
+                                            >
+                                                Show more
+                                            </a>
+                                        )}
                                     </div>
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-4 mt-4">
                                         <div className="flex items-center gap-1">
                                             {[...Array(feedback.rating)].map((_, i) => (
                                                 <svg key={i} className="lg:w-6 w-4 lg:h-6 h-4" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
