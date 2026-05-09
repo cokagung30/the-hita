@@ -86,6 +86,8 @@ export default function Home() {
     const [galleryIndex, setGalleryIndex] = useState(0);
     const [currentFeedbackIndex, setCurrentFeedbackIndex] = useState(0);
     const [isMounted, setIsMounted] = useState(false);
+    const [hoveredFacilityIndex, setHoveredFacilityIndex] = useState<number | null>(null);
+    const [activeOffer, setActiveOffer] = useState(0);
 
     const parallaxImgRef = useRef<HTMLDivElement>(null);
     const restRef = useRef<HTMLDivElement>(null);
@@ -95,6 +97,13 @@ export default function Home() {
 
     useEffect(() => {
         setIsMounted(true);
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveOffer((prev) => (prev + 1) % offers.length);
+        }, 3000);
+        return () => clearInterval(interval);
     }, []);
 
     useEffect(() => {
@@ -701,43 +710,60 @@ export default function Home() {
                         <h2 className="text-3xl sm:text-4xl font-semibold">Offers</h2>
                     </motion.div>
 
-                    <div className="mt-6 flex lg:gap-6 gap-2 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 lg:mx-7 mx-4 no-scrollbar">
-                        {offers.map((offer, i) => {
-                            return (
+                    {/* Desktop: horizontal scroll */}
+                    <div className="hidden lg:flex mt-6 lg:gap-6 gap-2 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 lg:mx-7 mx-4 no-scrollbar">
+                        {offers.map((offer, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, scale: 0.9, y: 40 }}
+                                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                viewport={{ once: false, margin: "-100px" }}
+                                transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
+                                className="bg-white lg:rounded-4xl rounded-xl lg:p-2 p-1 w-full flex flex-col lg:gap-8 gap-2 snap-center"
+                            >
+                                <div className="flex-1 text-sm lg:text-3xl font-semibold text-[#221604] lg:mx-6 mx-1.5 lg:my-4 my-2 lg:whitespace-pre-line">
+                                    {offer.title}
+                                </div>
+                                <div className="bg-gradient-to-b from-[#3D2709] to-[#211503] w-full text-white items-end py-2 lg:px-6 px-2 lg:rounded-b-4xl rounded-b-xl font-bold text-sm lg:text-3xl text-end">
+                                    {'percentage' in offer ? `${offer.percentage}% off` : 'Voucher'}
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Mobile: auto-play carousel */}
+                    <div className="lg:hidden mt-6 mx-4 flex flex-col items-center gap-4">
+                        <div className="w-full relative" style={{ minHeight: 160 }}>
+                            <AnimatePresence mode="wait">
                                 <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, scale: 0.9, y: 40 }}
-                                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                                    viewport={{ once: false, margin: "-100px" }}
-                                    transition={{ 
-                                        duration: 0.6, 
-                                        delay: i * 0.15, 
-                                        ease: "easeOut" 
-                                    }}
-                                    className="bg-white lg:rounded-4xl rounded-xl lg:p-2 p-1 w-full flex flex-col lg:gap-8 gap-2 snap-center"
+                                    key={activeOffer}
+                                    initial={{ opacity: 0, x: 60 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -60 }}
+                                    transition={{ duration: 0.45, ease: "easeInOut" }}
+                                    className="bg-white rounded-2xl p-1 flex flex-col gap-2 w-full"
                                 >
-                                    <motion.div 
-                                        initial={{ opacity: 0, x: -20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: false }}
-                                        transition={{ 
-                                            duration: 0.5, 
-                                            delay: i * 0.15 + 0.2,
-                                            ease: "easeOut" 
-                                        }}
-                                        className="flex-1 text-sm lg:text-3xl font-semibold text-[#221604] lg:mx-6 mx-1.5 lg:my-4 my-2 lg:whitespace-pre-line"
-                                    >
-                                        {offer.title}
-                                    </motion.div>
-                                    
-                                    <div
-                                        className="bg-gradient-to-b from-[#3D2709] to-[#211503] w-full text-white items-end py-2 lg:px-6 px-2 lg:rounded-b-4xl rounded-b-xl font-bold text-sm lg:text-3xl text-end"
-                                    >
-                                        {'percentage' in offer ? `${offer.percentage}% off` : 'Voucher'}
+                                    <div className="flex-1 text-xl font-semibold text-[#221604] mx-3 my-3 whitespace-pre-line">
+                                        {offers[activeOffer].title}
+                                    </div>
+                                    <div className="bg-gradient-to-b from-[#3D2709] to-[#211503] w-full text-white py-3 px-4 rounded-b-2xl font-bold text-xl text-end">
+                                        {'percentage' in offers[activeOffer] ? `${(offers[activeOffer] as {title:string;percentage:number}).percentage}% off` : 'Voucher'}
                                     </div>
                                 </motion.div>
-                            );
-                        })}
+                            </AnimatePresence>
+                        </div>
+                        {/* Dot indicators */}
+                        <div className="flex gap-2">
+                            {offers.map((_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => setActiveOffer(i)}
+                                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                        i === activeOffer ? 'bg-white scale-125' : 'bg-white/40'
+                                    }`}
+                                />
+                            ))}
+                        </div>
                     </div>
 
                     <motion.span 
@@ -787,92 +813,36 @@ export default function Home() {
                         Discover The Hita
                     </motion.div>
 
-                    <div className="flex flex-col lg:flex-row gap-6 w-full mb-4 lg:mb-10">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 40 }}
-                            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                            viewport={{ once: false, margin: "-100px" }}
-                            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-                            whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
-                            className="relative w-full lg:w-[20%] h-[90vw] lg:h-96 rounded-[16px] lg:rounded-[24px] overflow-hidden bg-neutral-100 cursor-pointer"
-                        >
-                            <Image src="/images/events-1.png" alt="Image Event 1" fill sizes="(max-width: 1024px) 90vw, 20vw" className="object-cover" />
-                            <motion.div 
-                                initial={{ opacity: 0 }}
-                                whileHover={{ opacity: 1 }}
-                                transition={{ duration: 0.3 }}
-                                className="absolute inset-0 bg-gradient-to-t from-[#3D2709]/80 via-[#3D2709]/40 to-transparent flex items-end p-4"
-                            >
-                                <p className="text-white font-semibold text-sm lg:text-base">Yoga Session</p>
-                            </motion.div>
-                        </motion.div>
-                        
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 40 }}
-                            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                            viewport={{ once: false, margin: "-100px" }}
-                            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-                            whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
-                            className="relative w-full lg:w-[35%] h-[90vw] lg:h-96 rounded-[16px] lg:rounded-[24px] overflow-hidden bg-neutral-100 cursor-pointer"
-                        >
-                            <Image src="/images/events-2.png" alt="Image Event 2" fill sizes="(max-width: 1024px) 90vw, 35vw" className="object-cover" />
-                            <motion.div 
-                                initial={{ opacity: 0 }}
-                                whileHover={{ opacity: 1 }}
-                                transition={{ duration: 0.3 }}
-                                className="absolute inset-0 bg-gradient-to-t from-[#3D2709]/80 via-[#3D2709]/40 to-transparent flex items-end p-4"
-                            >
-                                <p className="text-white font-semibold text-sm lg:text-base">Community Gathering</p>
-                            </motion.div>
-                        </motion.div>
-                        
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 40 }}
-                            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                            viewport={{ once: false, margin: "-100px" }}
-                            transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-                            whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
-                            className="relative w-full lg:w-[45%] h-[90vw] lg:h-96 rounded-[16px] lg:rounded-[24px] overflow-hidden bg-neutral-100 cursor-pointer"
-                        >
-                            <Image src="/images/events-3.png" alt="Image Event 3" fill sizes="(max-width: 1024px) 90vw, 45vw" className="object-cover" />
-                            <motion.div 
-                                initial={{ opacity: 0 }}
-                                whileHover={{ opacity: 1 }}
-                                transition={{ duration: 0.3 }}
-                                className="absolute inset-0 bg-gradient-to-t from-[#3D2709]/80 via-[#3D2709]/40 to-transparent flex items-end p-4"
-                            >
-                                <p className="text-white font-semibold text-sm lg:text-base">Rooftop BBQ</p>
-                            </motion.div>
-                        </motion.div>
-                    </div>
-
                     {/* Facility Slides */}
-                    <div className="mt-10 px-2 lg:px-4">
-                        <div className="flex gap-4 lg:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 no-scrollbar">
-                            {[
-                                { label: 'Cafe IGYT' },
-                                { label: 'Pool' },
-                                { label: 'Tour' },
-                                { label: 'Rental Bike' },
-                                { label: 'Pick Up & Drop Airport' },
-                                { label: 'Room Decoration' },
-                            ].map((facility, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                                    viewport={{ once: false, margin: '-100px' }}
-                                    transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
-                                    whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-                                    className="relative flex-shrink-0 w-[70vw] sm:w-[45vw] lg:w-[30%] h-52 lg:h-72 rounded-[16px] lg:rounded-[24px] overflow-hidden bg-neutral-200 snap-center cursor-pointer"
-                                >
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#3D2709]/80 via-[#3D2709]/20 to-transparent" />
-                                    <div className="absolute bottom-0 left-0 p-4 lg:p-6">
-                                        <p className="text-white font-semibold text-base lg:text-xl">{facility.label}</p>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
+                    <div className="flex flex-col lg:flex-row gap-3 lg:gap-4 mt-8">
+                        {[
+                            { label: 'Cafe IGYT', image: null },
+                            { label: 'Pool', image: '/images/facilities/facility-pool.jpg' },
+                            { label: 'Tour', image: '/images/facilities/facility-tour.jpg' },
+                            { label: 'Rental Bike', image: '/images/facilities/facility-rental.jpg' },
+                            { label: 'Pick Up & Drop Airport', image: '/images/facilities/facility-airport.jpg' },
+                            { label: 'Room Decoration', image: '/images/facilities/facility-room-decoration.jpg' },
+                        ].map((facility, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: false, margin: '-100px' }}
+                                transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+                                onMouseEnter={() => setHoveredFacilityIndex(i)}
+                                onMouseLeave={() => setHoveredFacilityIndex(null)}
+                                style={{ flexGrow: hoveredFacilityIndex === i ? 2.5 : 1, transition: 'flex-grow 500ms ease-in-out' }}
+                                className="relative w-full h-16 lg:h-72 rounded-[12px] lg:rounded-[24px] overflow-hidden bg-neutral-200 cursor-pointer"
+                            >
+                                {facility.image && (
+                                    <Image src={facility.image} alt={facility.label} fill sizes="(max-width: 1024px) 100vw, 30vw" className="object-cover" />
+                                )}
+                                <div className="absolute inset-0 bg-gradient-to-r lg:bg-gradient-to-t from-[#3D2709]/80 via-[#3D2709]/30 to-transparent" />
+                                <div className="absolute inset-0 flex items-center lg:items-end p-4 lg:p-6">
+                                    <p className="text-white font-semibold text-sm lg:text-xl whitespace-nowrap">{facility.label}</p>
+                                </div>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </section>
