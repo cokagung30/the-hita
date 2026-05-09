@@ -74,6 +74,8 @@ export default function Home() {
     const [activeOffer, setActiveOffer] = useState(0);
     const [feedbacks, setFeedbacks] = useState<GoogleReview[]>([]);
     const [isLoadingFeedbacks, setIsLoadingFeedbacks] = useState(true);
+    const [isPageLoading, setIsPageLoading] = useState(true);
+    const [isVideoReady, setIsVideoReady] = useState(false);
 
     const parallaxImgRef = useRef<HTMLDivElement>(null);
     const restRef = useRef<HTMLDivElement>(null);
@@ -84,6 +86,13 @@ export default function Home() {
     useEffect(() => {
         setIsMounted(true);
     }, []);
+
+    useEffect(() => {
+        if (isMounted && isVideoReady) {
+            const timer = setTimeout(() => setIsPageLoading(false), 300);
+            return () => clearTimeout(timer);
+        }
+    }, [isMounted, isVideoReady]);
 
     useEffect(() => {
         fetch("/api/reviews")
@@ -217,6 +226,32 @@ export default function Home() {
 
     return (
         <div suppressHydrationWarning>
+            <AnimatePresence>
+                {isPageLoading && (
+                    <motion.div
+                        key="loading"
+                        initial={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#2a1e14]"
+                    >
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.92 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.15, duration: 0.5 }}
+                        >
+                            <motion.img
+                                src="/images/header-logo.svg"
+                                alt="The Hita"
+                                animate={{ opacity: [1, 0.25, 1] }}
+                                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                                className="w-40 h-auto"
+                            />
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             <Header isScrolled={scrolled} />
 
             <section id="jumbotron" className="relative min-h-screen overflow-hidden">
@@ -233,6 +268,7 @@ export default function Home() {
                             playsInline
                             poster="/images/banner.avif"
                             preload="metadata"
+                            onCanPlay={() => setIsVideoReady(true)}
                             className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                         />
                     </div>
