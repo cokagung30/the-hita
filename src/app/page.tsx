@@ -725,7 +725,7 @@ export default function Home() {
                                             delay: i * 0.15 + 0.2,
                                             ease: "easeOut" 
                                         }}
-                                        className="text-sm lg:text-3xl font-semibold text-[#221604] lg:mx-6 mx-1.5 lg:my-4 my-2 lg:whitespace-pre-line"
+                                        className="flex-1 text-sm lg:text-3xl font-semibold text-[#221604] lg:mx-6 mx-1.5 lg:my-4 my-2 lg:whitespace-pre-line"
                                     >
                                         {offer.title}
                                     </motion.div>
