@@ -779,7 +779,7 @@ export default function Home() {
             </section>
 
             <section id="events" className="py-4 lg:py-7 bg-white px-4 lg:px-7">
-                <div className="relative min-h-screen overflow-hidden">
+                <div className="relative min-h-[40vh] lg:min-h-[65vh] overflow-hidden">
                     <div ref={eventsParallaxRef} className="absolute -inset-12 will-change-transform">
                         <Image 
                             src="/images/community.png"
