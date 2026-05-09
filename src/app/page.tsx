@@ -266,8 +266,7 @@ export default function Home() {
                             muted
                             loop
                             playsInline
-                            poster="/images/banner.avif"
-                            preload="metadata"
+                            preload="auto"
                             onCanPlay={() => setIsVideoReady(true)}
                             className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                         />
