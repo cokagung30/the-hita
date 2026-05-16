@@ -882,7 +882,7 @@ export default function Home() {
                     {/* Facility Slides */}
                     <div className="flex flex-col lg:flex-row gap-3 lg:gap-4 mt-8">
                         {[
-                            { label: 'Cafe IGYT', image: '/images/facilities/facility-cafe-igyt.DNG' },
+                            { label: 'Cafe IGYT', image: '/images/facilities/facility-cafe-igyt.jpg' },
                             { label: 'Pool', image: '/images/facilities/facility-pool.jpg' },
                             { label: 'Tour', image: '/images/facilities/facility-tour.jpg' },
                             { label: 'Rental Bike', image: '/images/facilities/facility-rental.jpg' },
