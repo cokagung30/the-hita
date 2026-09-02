@@ -30,7 +30,7 @@ src/
   constants/       # Static data arrays (REST_ITEMS, etc.)
   models/          # TypeScript type definitions
 public/
-  images/          # Static images (.avif preferred)
+  images/          # Static images (.webp) + logo .svg + banner.webm
 ```
 
 ## Conventions
@@ -74,5 +74,9 @@ public/
 ## Key Patterns to Follow
 - `src/app/page.tsx` is `"use client"` — keep it that way; add new sections here
 - `src/app/layout.tsx` is a Server Component — do not add client-side logic
-- Images: use `next/image` with `fill` + `sizes` prop for responsive images; prefer `.avif` format
+- Images: use `next/image` with `fill` + `sizes` prop for responsive images
+- **All photos are `.webp`**; logos stay `.svg`. No JPEG/PNG/AVIF — new images follow this.
+  Served without a `<picture>` fallback (WebP support is ~97%: Safari 14+ / iOS 14+).
+- Hero video is `banner.webm` (VP9), served via `<source>` not `src`, so another
+  format (e.g. MP4/H.264 for older Safari) can be added as one extra line.
 - External booking links open via `window.open(url, '_blank')`

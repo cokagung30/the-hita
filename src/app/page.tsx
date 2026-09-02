@@ -11,17 +11,17 @@ import { RestItem } from "@/app/_components/rest-item";
 const aboutSlides = [
     { 
         title: "A Cozy Guest House", 
-        image: "/images/illustration-1.jpg", 
+        image: "/images/illustration-1.webp", 
         desc: "Where island calm meets everyday comfort. The Hita is a boutique guest house built for those who travel slowly — sunlit rooms, a quiet café, and spaces that feel like they've always been yours. Every detail, from hand-picked linens to locally sourced breakfasts, is here to make you feel less like a guest and more like you've come home." 
     },
     { 
         title: "Designed for Slow Living", 
-        image: "/images/illustration-2.jpg", 
+        image: "/images/illustration-2.webp", 
         desc: "Soft linens, warm teak wood, and locally crafted décor shape spaces made for unwinding at your own pace. Private corners invite quiet reflection, while open courtyards become the gentle backdrop between your Bali adventures. Here, there's no rush — just the unhurried rhythm of island life, designed into every room." 
     },
     { 
         title: "Warm, Attentive Service", 
-        image: "/images/illustration-3.jpg", 
+        image: "/images/illustration-3.webp", 
         desc: "From the moment you arrive, our hosts treat you like family — not just a room number. Expect a warm welcome, freshly brewed coffee at dawn, a homemade breakfast made with local ingredients, and honest recommendations for the Bali only locals know. Small gestures, remembered preferences, and a genuine desire to make your stay feel effortless." 
     },
 ];
@@ -29,18 +29,18 @@ const aboutSlides = [
 const gallerySlides = [
     {
         word: "Stay",
-        left: ["/images/gallery/stay-1.jpg", "/images/gallery/stay-2.jpg", "/images/gallery/stay-3.jpg"],
-        right: ["/images/gallery/stay-4.jpg", "/images/gallery/stay-5.jpg", "/images/gallery/stay-6.jpg"],
+        left: ["/images/gallery/stay-1.webp", "/images/gallery/stay-2.webp", "/images/gallery/stay-3.webp"],
+        right: ["/images/gallery/stay-4.webp", "/images/gallery/stay-5.webp", "/images/gallery/stay-6.webp"],
     },
     {
         word: "Explore",
-        left: ["/images/gallery/explore-1.jpg", "/images/gallery/stay-2.jpg", "/images/gallery/stay-4.jpg"],
-        right: ["/images/gallery/stay-1.jpg", "/images/gallery/stay-5.jpg", "/images/gallery/stay-6.jpg"],
+        left: ["/images/gallery/explore-1.webp", "/images/gallery/stay-2.webp", "/images/gallery/stay-4.webp"],
+        right: ["/images/gallery/stay-1.webp", "/images/gallery/stay-5.webp", "/images/gallery/stay-6.webp"],
     },
     {
         word: "Enjoy",
-        left: ["/images/gallery/enjoy-1.jpg", "/images/gallery/enjoy-2.jpg", "/images/gallery/enjoy-3.jpg"],
-        right: ["/images/gallery/enjoy-4.jpg", "/images/gallery/enjoy-5.jpg", "/images/gallery/stay-1.jpg"],
+        left: ["/images/gallery/enjoy-1.webp", "/images/gallery/enjoy-2.webp", "/images/gallery/enjoy-3.webp"],
+        right: ["/images/gallery/enjoy-4.webp", "/images/gallery/enjoy-5.webp", "/images/gallery/stay-1.webp"],
     },
 ];
 
@@ -261,7 +261,6 @@ export default function Home() {
                         className="absolute -inset-12 will-change-transform"
                     >
                         <video
-                            src="/images/banner.mov"
                             autoPlay
                             muted
                             loop
@@ -269,7 +268,15 @@ export default function Home() {
                             preload="auto"
                             onCanPlay={() => setIsVideoReady(true)}
                             className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-                        />
+                        >
+                            {/*
+                              Browser memakai <source> pertama yang didukungnya.
+                              VP9/WebM: Chrome, Firefox, Edge, Android, Safari 14.1+ / iOS 15.4+.
+                              Untuk menutup Safari yang lebih lama, tambahkan di bawah baris ini:
+                              <source src="/images/banner.mp4" type="video/mp4" />
+                            */}
+                            <source src="/images/banner.webm" type="video/webm" />
+                        </video>
                     </div>
 
                     <div className="absolute inset-0 bg-[#2a1e14]/40" />
@@ -848,7 +855,7 @@ export default function Home() {
                 <div className="relative min-h-[40vh] lg:min-h-[65vh] overflow-hidden">
                     <div ref={eventsParallaxRef} className="absolute -inset-12 will-change-transform">
                         <Image 
-                            src="/images/event.png"
+                            src="/images/event.webp"
                             alt="Illustration Community"
                             fill
                             sizes="100vw"
@@ -882,12 +889,12 @@ export default function Home() {
                     {/* Facility Slides */}
                     <div className="flex flex-col lg:flex-row gap-3 lg:gap-4 mt-8">
                         {[
-                            { label: 'Cafe IGYT', image: '/images/facilities/facility-cafe-igyt.jpg' },
-                            { label: 'Pool', image: '/images/facilities/facility-pool.jpg' },
-                            { label: 'Tour', image: '/images/facilities/facility-tour.jpg' },
-                            { label: 'Rental Bike', image: '/images/facilities/facility-rental.jpg' },
-                            { label: 'Pick Up & Drop Airport', image: '/images/facilities/facility-airport.jpg' },
-                            { label: 'Room Decoration', image: '/images/facilities/facility-room-decoration.jpg' },
+                            { label: 'Cafe IGYT', image: '/images/facilities/facility-cafe-igyt.webp' },
+                            { label: 'Pool', image: '/images/facilities/facility-pool.webp' },
+                            { label: 'Tour', image: '/images/facilities/facility-tour.webp' },
+                            { label: 'Rental Bike', image: '/images/facilities/facility-rental.webp' },
+                            { label: 'Pick Up & Drop Airport', image: '/images/facilities/facility-airport.webp' },
+                            { label: 'Room Decoration', image: '/images/facilities/facility-room-decoration.webp' },
                         ].map((facility, i) => (
                             <div
                                 key={i}
